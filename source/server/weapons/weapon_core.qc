@@ -1673,7 +1673,7 @@ void () Impulse_Functions =
 
 #ifdef FTE
 
-			bprint(PRINT_HIGH, "Unknown impulse: ", ftos(self.impulse));
+			bprint(PRINT_HIGH, "Unknown impulse: ", ftos(self.impulse), "\n");
 
 #endif // FTE
 
