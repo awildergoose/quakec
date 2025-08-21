@@ -304,18 +304,46 @@ void(entity target, float low_frequency, float high_frequency, float duration) n
 
 #endif // FTE
 
-void(float count) UpdatePlayerCount = {
+void() SendUpdatePlayers =
+{
 #ifdef FTE
-	if (count == 0)
-		return;
-	else {
-		WriteByte(MSG_MULTICAST, SVC_CGAMEPACKET);
-		WriteByte(MSG_MULTICAST, EVENT_PLAYERUPDATE);
-		WriteByte(MSG_MULTICAST, count);
-		multicast('0 0 0', MULTICAST_ALL);
+	local float i;
+	local entity e;
+	local float count;
+
+	count = 0;
+	for (i = 1; i <= cvar("maxclients"); i = i + 1)
+	{
+		e = edict_num(i);
+		if (e.flags & FL_CLIENT)
+			count = count + 1;
 	}
 
-#endif // FTE
+	if (count == 0)
+		return;
+
+	WriteByte(MSG_MULTICAST, SVC_CGAMEPACKET);
+	WriteByte(MSG_MULTICAST, EVENT_PLAYERUPDATE);
+	WriteByte(MSG_MULTICAST, count);
+
+	for (i = 1; i <= cvar("maxclients"); i = i + 1)
+	{
+		e = edict_num(i);
+		if (!(e.flags & FL_CLIENT))
+			continue;
+
+		WriteByte(MSG_MULTICAST, i);
+        WriteFloat(MSG_MULTICAST, e.points); // FIXME: this should be made a short, but I know we use price of 1 for some test maps, so I can't do /10 *10 shenanigans.
+        WriteShort(MSG_MULTICAST, e.kills);
+        WriteShort(MSG_MULTICAST, e.headshots);
+        WriteShort(MSG_MULTICAST, e.downs);
+        WriteShort(MSG_MULTICAST, e.revives);
+        WriteByte(MSG_MULTICAST, e.is_in_menu);
+        WriteByte(MSG_MULTICAST, e.is_spectator);
+	}
+
+	multicast('0 0 0', MULTICAST_ALL);
+#endif
 }
 
 #ifdef FTE
@@ -560,13 +588,6 @@ float Player_SendEntity( entity ePVEnt, float flChanged ) {
 	WriteShort( MSG_ENTITY, self.movetype ); // Player Movetype
     WriteShort( MSG_ENTITY, self.flags ); // Flags, important for physics
 	WriteByte( MSG_ENTITY, self.stance ); // Player Stance
-	// WriteFloat( MSG_ENTITY, self.points ); // Player Score
-	// WriteShort( MSG_ENTITY, self.kills ); // Player Kills
-	// WriteShort( MSG_ENTITY, self.headshots ); // Player Headshots
-	// WriteShort( MSG_ENTITY, self.downs ); // Player Downs
-	// WriteShort( MSG_ENTITY, self.revives ); // Player Revives
-	// WriteByte( MSG_ENTITY, self.is_in_menu ); // Player is in a Menu State
-	// WriteByte( MSG_ENTITY, self.is_spectator ); // Player is spectating
 	WriteShort( MSG_ENTITY, self.ping ); // Player's latency to the server in ms
     return TRUE;
 }

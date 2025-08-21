@@ -3,12 +3,12 @@
 CD ../
 
 REM ****** generate hash table ******
-echo Generating Hash Table..
-python bin\qc_hash_generator.py -i tools\asset_conversion_table.csv -o source\server\hash_table.qc
+REM echo Generating Hash Table..
+REM python bin\qc_hash_generator.py -i tools\asset_conversion_table.csv -o source\server\hash_table.qc
 
 REM ****** create build directories ******
-MKDIR build\fte\ 2>nul
-MKDIR build\standard\ 2>nul
+REM MKDIR build\fte\ 2>nul
+REM MKDIR build\standard\ 2>nul
 
 CD bin/
 

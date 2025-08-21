@@ -239,6 +239,8 @@ void(entity attacker, float d_style) DieHandler =
     }
 
     if (attacker.classname == "player") {
+        // we actually dont need to call SendUpdatePlayers here
+        // because Player_AddScore already does
 		attacker.kills++;
 		nzp_hitmarker(attacker, true);
 

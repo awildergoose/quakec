@@ -418,21 +418,6 @@ noref void(float isnew) CSQC_Ent_Update =
 		self.movetype = readshort();
 		self.flags = readshort();
 		self.stance = readbyte();
-        self.points = 0;
-        self.kills = 0;
-        self.headshots = 0;
-        self.downs = 0;
-        self.revives = 0;
-        self.ping = 69;
-		self.is_in_menu = 0;
-        self.is_spectator = FALSE;
-		// self.points = readfloat();	// FIXME: this should be made a short, but I know we use price of 1 for some test maps, so I can't do /10 *10 shenanigans.
-		// self.kills = readshort();
-		// self.headshots = readshort();
-		// self.downs = readshort();
-		// self.revives = readshort();
-        // self.is_in_menu = readbyte();
-		// self.is_spectator = readbyte();
 		self.ping = readshort();
 
 		// set for HUD_PlayerDebugInfo
@@ -444,8 +429,6 @@ noref void(float isnew) CSQC_Ent_Update =
 			self.solid = SOLID_NOT;
 		else
 			self.solid = SOLID_SLIDEBOX;
-
-		RegisterPointChange(self.points - old_points, self.playernum);
 
 		if (map_compatibility_mode != MAP_COMPAT_BETA) {
 			if (self.stance == 2)
@@ -1204,6 +1187,24 @@ noref void() CSQC_Parse_Event =
 			break;
 		case EVENT_PLAYERUPDATE:
 			player_count = readbyte();
+            
+            for (int i = 0; i < player_count; i = i + 1)
+            {
+                player_id = readbyte();
+                local entity pl = edict_num(player_id);
+
+                float old_points = pl.points;
+                pl.points       = readfloat();
+                pl.kills        = readshort();
+                pl.headshots    = readshort();
+                pl.downs        = readshort();
+                pl.revives      = readshort();
+                pl.is_in_menu   = readbyte();
+                pl.is_spectator = readbyte();
+
+                RegisterPointChange(pl.points - old_points, player_id);
+            }
+
 			break;
 		case EVENT_GRENADEPULSE:
 			crosshair_pulse_grenade = true;

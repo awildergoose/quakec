@@ -317,6 +317,7 @@ void(entity who, float value, float impacted_by_2x_points) Player_ChangeScore =
 
 	// Append the value to our current score.
 	who.points += value;
+    SendUpdatePlayers();
 };
 
 //
@@ -691,7 +692,10 @@ void() PlayerPostThink =
 	if (self.is_in_menu != 1)
 		if (infokey(self, "chat") == "1")
 			self.is_in_menu = 2;
-	
+	if (self.is_in_menu != self.last_is_in_menu) {
+        SendUpdatePlayers();
+        self.last_is_in_menu = self.is_in_menu;
+    }
 
 #endif // FTE
 
@@ -1104,6 +1108,7 @@ void() PlayerSpawn =
 		nzp_setplayername(self, self.name);
 
 	Gamemode_PlayerSpawn();
+    SendUpdatePlayers();
 };
 
 void() SpectatorSpawn =
@@ -1142,6 +1147,7 @@ void() SpectatorSpawn =
 #endif // FTE
 
 	setorigin(self, spawnpoint.origin + '0 0 20');
+    SendUpdatePlayers();
 };
 
 //called when a client loads a map
@@ -1155,7 +1161,7 @@ void() PutClientInServer =
 	}
 
 	player_count++;
-	UpdatePlayerCount(player_count);
+	SendUpdatePlayers();
 
 	if(cvar("developer") || player_count > 1) {
 		bprint(PRINT_HIGH, self.netname);
@@ -1192,7 +1198,6 @@ void() ClientDisconnect =
 	bprint(PRINT_HIGH, self.netname);
 	bprint(PRINT_HIGH, " has left the game.\n");
 	player_count--;
-	UpdatePlayerCount(player_count);
 	
 	self.classname = "disconnected";
 	self.solid = SOLID_NOT;
@@ -1229,6 +1234,8 @@ void() ClientDisconnect =
 		tempe.think = RestartDedicatedServer;
 		tempe.nextthink = time + 0.25;
 	}
+    
+	SendUpdatePlayers();
 };
 
 

@@ -68,6 +68,7 @@ void(entity client) Blade_Revive =
 	// and increment their revives stat.
 	Player_AddScore(self.owner, other.requirespower, false);
 	self.owner.revives++;
+    SendUpdatePlayers();
 
     entity old_self = self;
 	self = other;

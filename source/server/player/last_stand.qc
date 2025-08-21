@@ -42,11 +42,11 @@ void() LastStand_SoloRevive =
     GetUp();
     self = old_self;
 
-    // Give the player their score back.
-    Player_AddScore(self.owner, self.owner.requirespower, false);
-
 	// Technically, this counts as a revive, I suppose.
 	self.owner.revives++;
+
+    // Give the player their score back.
+    Player_AddScore(self.owner, self.owner.requirespower, false);
 
     // No need for us to exist anymore, goodbye!
     remove(self);
@@ -106,6 +106,7 @@ void(entity client) LastStand_Penalize =
 
 	// Increment stat
 	client.downs++;
+    SendUpdatePlayers();
 };
 
 //
@@ -396,8 +397,8 @@ void() LastStand_TouchReviveTrigger =
 	if (self.ltime < time) {
 		// Reward the revivee with the points the downed client lost,
 		// and increment their revives stat.
-		Player_AddScore(other, self.owner.requirespower, false);
 		self.owner.revives++;
+		Player_AddScore(other, self.owner.requirespower, false);
 
 		entity old_self = self;
 		self = self.owner;

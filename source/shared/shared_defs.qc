@@ -332,6 +332,7 @@ float in_endgame_sequence;
 
 #ifdef FTE
 .float is_in_menu;
+.float last_is_in_menu;
 .float is_using_gamepad;
 #endif // FTE
 
