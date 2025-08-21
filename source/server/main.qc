@@ -403,6 +403,7 @@ void() worldspawn =
     autocvar(stv_plrspeed, 1);
     autocvar(stv_wpndmg, 1);
     autocvar(stv_jmpheight, 230);
+    autocvar(stv_spawntimer, -1);
 
 #endif // FTE
 

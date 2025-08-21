@@ -31,6 +31,8 @@ void(vector position, string bind, vector scale) Key_DrawControllerGlyph;
 // vid_ultrawide_limiter
 #define ULTRAWIDE_OFFSET 		250
 
+// this should be moved to common later
+#define LASTSTAND_DEATH_TIMER       35
 
 float() GetUltraWideOffset =
 {
@@ -2162,7 +2164,7 @@ void() HUD_ReviveIcons =
 			} 
 			// Draw with a yellow->red hue.
 			else {
-				drawpic(screen_position, "gfx/hud/revive_icon.tga", [32, 32, 1], [1,1 - (revive_icons[i].timer/30),0], 1);
+				drawpic(screen_position, "gfx/hud/revive_icon.tga", [32, 32, 1], [1,1 - (revive_icons[i].timer/LASTSTAND_REVIVE_TIME),0], 1);
 			}
 		}
 	}

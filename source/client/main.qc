@@ -1211,8 +1211,6 @@ noref void() CSQC_Parse_Event =
                 pl.is_in_menu   = readbyte();
                 pl.is_spectator = readbyte();
 
-                print("old points for ", ftos(player_id), ": ", ftos(old_points), " new points: ", ftos(pl.points), "\n");
-
                 RegisterPointChange(pl.points - old_points, player_id);
             }
 

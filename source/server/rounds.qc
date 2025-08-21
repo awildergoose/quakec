@@ -305,7 +305,10 @@ void() NewRound =
 		zombie_spawn_delay = 2;
 
 	// Actually start the timer
-	zombie_spawn_timer = 2 + time;
+    float const_speed = cvar("stv_spawntimer");
+    if (const_speed == -1)
+	    zombie_spawn_timer = 2 + time;
+    else zombie_spawn_timer = const_speed;
 
 	if (rounds >= 10 && ach_tracker_spin == 0) {
 		GiveAchievement(10);
