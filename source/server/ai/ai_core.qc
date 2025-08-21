@@ -800,6 +800,8 @@ void(float dist) Inside_Walk = {
 
 .float droptime;
 void(float dist) Zombie_Walk =  {
+    dist *= cvar("stv_zmbspeed");
+    
 	//Resetting velocity from last frame (except for vertical)
 	self.velocity_x = 0;
 	self.velocity_y = 0;

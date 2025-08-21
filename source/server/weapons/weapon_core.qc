@@ -1655,6 +1655,28 @@ void () Impulse_Functions =
 			self.ads_release = !self.ads_release;
 			self.has_ads_toggle = true;
 			break;
+        case 27:
+            // stand
+            if (self.downed || !(self.flags & FL_ONGROUND) || self.changestance == true || self.new_ofs_z != self.view_ofs_z || !Player_CanStandHere(self))
+        		return;
+
+            Player_SetStance(self, PLAYER_STANCE_STAND, true);
+            self.stancereset = false;
+            break;
+        case 28:
+            // crouch
+            if (self.downed || !(self.flags & FL_ONGROUND) || self.changestance == true || self.new_ofs_z != self.view_ofs_z)
+        		return;
+
+            Player_SetStance(self, PLAYER_STANCE_CROUCH, true);
+            break;
+        case 29:
+            // prone
+            if (self.downed || !(self.flags & FL_ONGROUND) || self.changestance == true || self.new_ofs_z != self.view_ofs_z)
+        		return;
+
+            Player_SetStance(self, PLAYER_STANCE_PRONE, true);
+            break;
 		case 33:
 			W_PrimeBetty();
 			break;

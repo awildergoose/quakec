@@ -1,5 +1,6 @@
 float menu_bind_currentwatcher;
-string menu_bind_buttons[13] = {"bm_jump", "bm_spri", "bm_crou", "bm_wnex", "bm_use", "bm_relo", "bm_mele", "bm_prig", "bm_secg", "bm_fire", "bm_ads", "bm_apply", "bm_back"};
+string menu_bind_buttons[18] = {"bm_jump", "bm_spri", "bm_crou", "bm_wnex", "bm_use", "bm_relo", "bm_mele", "bm_prig", "bm_secg", "bm_fire", "bm_more", "bm_apply", "bm_back"};
+string menu_bind_more_buttons[7] = {"bm_ads", "bm_stand", "bm_crouch", "bm_prone", "bm_less", "bm_apply", "bm_back"};
 
 float(float keynum) Menu_Bindings_IsGamepad =
 {
@@ -89,6 +90,47 @@ string(string next_id) Menu_Bindings_GetPreviousButton =
     return ret;
 };
 
+
+string(string prev_id) Menu_Bindings_More_GetNextButton =
+{
+    if (prev_id == "")
+        return menu_bind_more_buttons[0];
+
+    string ret = menu_bind_more_buttons[0];
+
+    for(float i = 0; i < menu_bind_more_buttons.length; i++) {
+        if (menu_bind_more_buttons[i] == prev_id) {
+            if (i + 1 >= menu_bind_more_buttons.length)
+                break;
+
+            ret = menu_bind_more_buttons[i + 1];
+            break;
+        }
+    }
+
+    return ret;
+};
+
+string(string next_id) Menu_Bindings_More_GetPreviousButton =
+{
+    if (next_id == "")
+        return menu_bind_more_buttons[menu_bind_more_buttons.length - 1];
+
+    string ret = menu_bind_more_buttons[menu_bind_more_buttons.length - 1];
+
+    for(float i = menu_bind_more_buttons.length - 1; i > 0; i--) {
+        if (menu_bind_more_buttons[i] == next_id) {
+            if (i - 1 < 0)
+                break;
+
+            ret = menu_bind_more_buttons[i - 1];
+            break;
+        }
+    }
+
+    return ret;
+};
+
 void() Menu_Bindings =
 {
     Menu_DrawBackground();
@@ -103,7 +145,7 @@ void() Menu_Bindings =
 
     Menu_Button(3, "bm_crou", "CHANGE STANCE", "") ? Menu_Bindings_Listen(3, "impulse 30") : 0;
     Menu_Bindings_PrintBindForCommand(3, "impulse 30");
-    
+
     Menu_Button(4, "bm_wnex", "SWAP WEAPON", "") ? Menu_Bindings_Listen(4, "+button4") : 0;
     Menu_Bindings_PrintBindForCommand(4, "+button4");
     
@@ -125,12 +167,37 @@ void() Menu_Bindings =
     Menu_Button(10, "bm_fire", "WEAPON FIRE", "") ? Menu_Bindings_Listen(10, "+attack") : 0;
     Menu_Bindings_PrintBindForCommand(10, "+attack");
 
-    Menu_Button(11, "bm_ads", "AIM DOWN SIGHTS", "") ? Menu_Bindings_Listen(11, "+button8") : 0;
-    Menu_Bindings_PrintBindForCommand(11, "+button8");
+    Menu_Button(11, "bm_more", "MORE", "") ? current_menu = MENU_BINDINGSMORE : 0;
 
     Menu_DrawDivider(12.25);
     Menu_Button(-2, "bm_apply", "APPLY", "Save & Apply Settings.") ? Menu_Gamepad_ApplySettings() : 0;
     Menu_Button(-1, "bm_back", "BACK", "Return to Control Options.") ? Menu_Bindings_Back() : 0;
 
 	sui_pop_frame();	
+};
+
+void() Menu_Bindings_More =
+{
+    Menu_DrawBackground();
+    Menu_DrawTitle("CONTROL BINDINGS");
+    Menu_DrawMapPanel();
+
+    Menu_Button(1, "bm_ads", "AIM DOWN SIGHTS", "") ? Menu_Bindings_Listen(11, "+button8") : 0;
+    Menu_Bindings_PrintBindForCommand(1, "+button8");
+
+    Menu_Button(2, "bm_stand", "STAND", "") ? Menu_Bindings_Listen(12, "impulse 27") : 0;
+    Menu_Bindings_PrintBindForCommand(2, "impulse 27");
+
+    Menu_Button(3, "bm_crouch", "CROUCH", "") ? Menu_Bindings_Listen(13, "impulse 28") : 0;
+    Menu_Bindings_PrintBindForCommand(3, "impulse 28");
+
+    Menu_Button(4, "bm_prone", "PRONE", "") ? Menu_Bindings_Listen(14, "impulse 29") : 0;
+    Menu_Bindings_PrintBindForCommand(4, "impulse 29");
+
+    Menu_Button(-3.65, "bm_less", "LESS", "") ? current_menu = MENU_BINDINGS : 0;
+    Menu_DrawDivider(12.25);
+    Menu_Button(-2, "bm_apply", "APPLY", "Save & Apply Settings.") ? Menu_Gamepad_ApplySettings() : 0;
+    Menu_Button(-1, "bm_back", "BACK", "Return to Control Options.") ? Menu_Bindings_Back() : 0;
+
+	sui_pop_frame();
 };

@@ -537,7 +537,7 @@ void() PlayerJump =
 	
 	self.oldz = self.origin_z;
 
-	self.velocity_z = 230;
+	self.velocity_z = cvar("stv_jmpheight");
 }
 
 void(float override) JumpCheck =

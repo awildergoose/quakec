@@ -560,13 +560,13 @@ float Player_SendEntity( entity ePVEnt, float flChanged ) {
 	WriteShort( MSG_ENTITY, self.movetype ); // Player Movetype
     WriteShort( MSG_ENTITY, self.flags ); // Flags, important for physics
 	WriteByte( MSG_ENTITY, self.stance ); // Player Stance
-	WriteFloat( MSG_ENTITY, self.points ); // Player Score
-	WriteShort( MSG_ENTITY, self.kills ); // Player Kills
-	WriteShort( MSG_ENTITY, self.headshots ); // Player Headshots
-	WriteShort( MSG_ENTITY, self.downs ); // Player Downs
-	WriteShort( MSG_ENTITY, self.revives ); // Player Revives
-	WriteByte( MSG_ENTITY, self.is_in_menu ); // Player is in a Menu State
-	WriteByte( MSG_ENTITY, self.is_spectator ); // Player is spectating
+	// WriteFloat( MSG_ENTITY, self.points ); // Player Score
+	// WriteShort( MSG_ENTITY, self.kills ); // Player Kills
+	// WriteShort( MSG_ENTITY, self.headshots ); // Player Headshots
+	// WriteShort( MSG_ENTITY, self.downs ); // Player Downs
+	// WriteShort( MSG_ENTITY, self.revives ); // Player Revives
+	// WriteByte( MSG_ENTITY, self.is_in_menu ); // Player is in a Menu State
+	// WriteByte( MSG_ENTITY, self.is_spectator ); // Player is spectating
 	WriteShort( MSG_ENTITY, self.ping ); // Player's latency to the server in ms
     return TRUE;
 }

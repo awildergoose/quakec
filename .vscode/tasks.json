@@ -1,0 +1,13 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "compile",
+			"command": "qc-compiler-win.bat",
+			"type": "shell",
+			"options": {
+				"cwd": "${cwd}/tools"
+			}
+		}
+	]
+}

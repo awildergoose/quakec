@@ -56,6 +56,7 @@ enum {
     MENU_CONTROL,
     MENU_GAMEPAD,
     MENU_BINDINGS,
+    MENU_BINDINGSMORE,
     MENU_ACCESSIBILITY,
     MENU_CREDITS,
     MENU_PAUSE,
@@ -93,6 +94,7 @@ void() Menu_Audio;
 void() Menu_Control;
 void() Menu_Gamepad;
 void() Menu_Bindings;
+void() Menu_Bindings_More;
 void() Menu_Accessibility;
 
 #ifdef MENU
@@ -140,6 +142,8 @@ string(string prev_id) Menu_Gamepad_GetNextButton;
 string(string next_id) Menu_Gamepad_GetPreviousButton;
 string(string prev_id) Menu_Bindings_GetNextButton;
 string(string next_id) Menu_Bindings_GetPreviousButton;
+string(string prev_id) Menu_Bindings_More_GetNextButton;
+string(string next_id) Menu_Bindings_More_GetPreviousButton;
 string(string prev_id) Menu_Accessibility_GetNextButton;
 string(string next_id) Menu_Accessibility_GetPreviousButton;
 

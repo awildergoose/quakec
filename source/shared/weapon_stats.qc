@@ -1027,6 +1027,8 @@ float(float wep) getWeaponDamage =
 	weapon_damage = Gamemode_GetWeaponDamage(weapon_damage);
 #endif // CSQC
 
+    weapon_damage *= cvar("stv_wpndmg");
+
     return weapon_damage;
 }
 
@@ -1654,6 +1656,8 @@ float GetWeaponWalkSpeed(float perks, float weapon)
 
 	if (perks & P_STAMIN)
 		speed_multiplier *= 1.07;
+    
+    speed_multiplier *= cvar("stv_plrspeed");
 
 	return speed_multiplier;
 }

@@ -901,6 +901,7 @@ void(vector size) root_menu =
 		case MENU_CONTROL: Menu_Control(); break;
 		case MENU_GAMEPAD: Menu_Gamepad(); break;
 		case MENU_BINDINGS: Menu_Bindings(); break;
+        case MENU_BINDINGSMORE: Menu_Bindings_More(); break;
 		case MENU_ACCESSIBILITY: Menu_Accessibility(); break;
 
 		default: break;

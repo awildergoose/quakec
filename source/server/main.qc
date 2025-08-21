@@ -398,6 +398,12 @@ void() worldspawn =
 	autocvar(sv_maxai, 24);
 	autocvar(sv_fastrounds, 0);
 
+    // stupid steve commands
+    autocvar(stv_zmbspeed, 1);
+    autocvar(stv_plrspeed, 1);
+    autocvar(stv_wpndmg, 1);
+    autocvar(stv_jmpheight, 230);
+
 #endif // FTE
 
 	mappath = strcat("maps/", mapname);
