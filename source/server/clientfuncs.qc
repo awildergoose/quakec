@@ -332,7 +332,7 @@ void() SendUpdatePlayers =
 		if (!(e.flags & FL_CLIENT))
 			continue;
 
-		WriteByte(MSG_MULTICAST, i);
+		WriteByte(MSG_MULTICAST, e.playernum);
         WriteFloat(MSG_MULTICAST, e.points); // FIXME: this should be made a short, but I know we use price of 1 for some test maps, so I can't do /10 *10 shenanigans.
         WriteShort(MSG_MULTICAST, e.kills);
         WriteShort(MSG_MULTICAST, e.headshots);
@@ -342,7 +342,7 @@ void() SendUpdatePlayers =
         WriteByte(MSG_MULTICAST, e.is_spectator);
 	}
 
-	multicast('0 0 0', MULTICAST_ALL);
+	multicast('0 0 0', MULTICAST_ALL_R);
 #endif
 }
 

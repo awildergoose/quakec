@@ -993,6 +993,15 @@ noref void() CSQC_Input_Frame =
 
 #define DEG2RAD(x)	(x * M_PI / 180.f)
 
+entity GetClientById(float id)
+{
+    local entity e;
+    e = findfloat(world, playernum, id);
+    if (e == world)
+        return __NULL__;
+    return e;
+}
+
 noref void() CSQC_Parse_Event =
 {
 	float event_type = readbyte();
@@ -1191,7 +1200,7 @@ noref void() CSQC_Parse_Event =
             for (int i = 0; i < player_count; i = i + 1)
             {
                 player_id = readbyte();
-                local entity pl = edict_num(player_id);
+                local entity pl = GetClientById(player_id);
 
                 float old_points = pl.points;
                 pl.points       = readfloat();
@@ -1201,6 +1210,8 @@ noref void() CSQC_Parse_Event =
                 pl.revives      = readshort();
                 pl.is_in_menu   = readbyte();
                 pl.is_spectator = readbyte();
+
+                print("old points for ", ftos(player_id), ": ", ftos(old_points), " new points: ", ftos(pl.points), "\n");
 
                 RegisterPointChange(pl.points - old_points, player_id);
             }
