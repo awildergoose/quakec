@@ -2164,7 +2164,7 @@ void() HUD_ReviveIcons =
 			} 
 			// Draw with a yellow->red hue.
 			else {
-				drawpic(screen_position, "gfx/hud/revive_icon.tga", [32, 32, 1], [1,1 - (revive_icons[i].timer/LASTSTAND_REVIVE_TIME),0], 1);
+				drawpic(screen_position, "gfx/hud/revive_icon.tga", [32, 32, 1], [1,1 - (revive_icons[i].timer/LASTSTAND_DEATH_TIMER),0], 1);
 			}
 		}
 	}
@@ -2186,6 +2186,18 @@ void() HUD_StopWatch =
 
 	stopwatch = strcat(hr, ":", min, ":", sec);
 	HUD_DrawStringWithBackdrop([g_width - (getTextWidth(stopwatch, 12)) - 2, 2], stopwatch, [12, 12], TEXT_ORANGE, 1, 0);
+}
+
+void() HUD_STVDebugging =
+{
+    // HUD_DrawStringWithBackdrop([x, y], text, [sx, sy], TEXT_ORANGE, 1, 0);
+    for (int i = 0; i < 7; i++) {
+        float player_number = getplayerkeyfloat(i, "client_index");
+        entity plr = findfloat(world, playernum, player_number);
+        string text = ftos(i);
+        text = strcat(text, " ", plr.is_spectator == TRUE ? "Spectating" : "Ingame");
+        HUD_DrawStringWithBackdrop([5, 50 + (i * 30)], text, [12, 12], TEXT_ORANGE, 1, 0);
+    }
 }
 
 void() HUD_RoundStopWatch =
@@ -2503,4 +2515,5 @@ void() HUD_DrawElements =
 	// Standard Play
 	//
 	HUD_DrawElementsForPlayer();
+    HUD_STVDebugging();
 };

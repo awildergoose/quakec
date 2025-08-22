@@ -304,42 +304,44 @@ void(entity target, float low_frequency, float high_frequency, float duration) n
 
 #endif // FTE
 
-void() SendUpdatePlayers =
+void(float updateAll = FALSE) SendUpdatePlayers =
 {
 #ifdef FTE
-	local float i;
-	local entity e;
 	local float count;
+	local entity client;
 
 	count = 0;
-	for (i = 1; i <= cvar("maxclients"); i = i + 1)
-	{
-		e = edict_num(i);
-		if (e.flags & FL_CLIENT)
-			count = count + 1;
-	}
+
+    for (float i = 0; i < 8; i++)
+    {
+        client = edict_num(i);
+        if ((client != world && (client.flags & FL_CLIENT) && client.netname != "") || updateAll)
+            count++;
+    }
 
 	if (count == 0)
 		return;
+
+    print("count: ", ftos(count), "\n");
 
 	WriteByte(MSG_MULTICAST, SVC_CGAMEPACKET);
 	WriteByte(MSG_MULTICAST, EVENT_PLAYERUPDATE);
 	WriteByte(MSG_MULTICAST, count);
 
-	for (i = 1; i <= cvar("maxclients"); i = i + 1)
+    for (float i = 0; i < 8; i++)
 	{
-		e = edict_num(i);
-		if (!(e.flags & FL_CLIENT))
+        client = edict_num(i);
+		if (!(client != world && (client.flags & FL_CLIENT) && client.netname != "") && !updateAll)
 			continue;
 
-		WriteByte(MSG_MULTICAST, e.playernum);
-        WriteFloat(MSG_MULTICAST, e.points); // FIXME: this should be made a short, but I know we use price of 1 for some test maps, so I can't do /10 *10 shenanigans.
-        WriteShort(MSG_MULTICAST, e.kills);
-        WriteShort(MSG_MULTICAST, e.headshots);
-        WriteShort(MSG_MULTICAST, e.downs);
-        WriteShort(MSG_MULTICAST, e.revives);
-        WriteByte(MSG_MULTICAST, e.is_in_menu);
-        WriteByte(MSG_MULTICAST, e.is_spectator);
+		WriteByte(MSG_MULTICAST , client.playernum);
+        WriteFloat(MSG_MULTICAST, client.points); // FIXME: this should be made a short, but I know we use price of 1 for some test maps, so I can't do /10 *10 shenanigans.
+        WriteShort(MSG_MULTICAST, client.kills);
+        WriteShort(MSG_MULTICAST, client.headshots);
+        WriteShort(MSG_MULTICAST, client.downs);
+        WriteShort(MSG_MULTICAST, client.revives);
+        WriteByte(MSG_MULTICAST , client.is_in_menu);
+        WriteByte(MSG_MULTICAST , client.is_spectator);
 	}
 
 	multicast('0 0 0', MULTICAST_ALL_R);

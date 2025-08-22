@@ -1196,20 +1196,31 @@ noref void() CSQC_Parse_Event =
 			break;
 		case EVENT_PLAYERUPDATE:
 			player_count = readbyte();
-            
-            for (int i = 0; i < player_count; i = i + 1)
+
+            for (int i = 0; i < player_count; i++)
             {
                 player_id = readbyte();
+
+                float new_points = readfloat();
+                float new_kills = readshort();
+                float new_heads = readshort();
+                float new_downs = readshort();
+                float new_revives = readshort();
+                float new_in_menu = readbyte();
+                float new_spec = readbyte();
+
                 local entity pl = GetClientById(player_id);
+                if (pl == __NULL__)
+                    continue;
 
                 float old_points = pl.points;
-                pl.points       = readfloat();
-                pl.kills        = readshort();
-                pl.headshots    = readshort();
-                pl.downs        = readshort();
-                pl.revives      = readshort();
-                pl.is_in_menu   = readbyte();
-                pl.is_spectator = readbyte();
+                pl.points       = new_points;
+                pl.kills        = new_kills;
+                pl.headshots    = new_heads;
+                pl.downs        = new_downs;
+                pl.revives      = new_revives;
+                pl.is_in_menu   = new_in_menu;
+                pl.is_spectator = new_spec;
 
                 RegisterPointChange(pl.points - old_points, player_id);
             }

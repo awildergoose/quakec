@@ -1108,7 +1108,7 @@ void() PlayerSpawn =
 		nzp_setplayername(self, self.name);
 
 	Gamemode_PlayerSpawn();
-    SendUpdatePlayers();
+    SendUpdatePlayers(true);
 };
 
 void() SpectatorSpawn =
@@ -1147,7 +1147,7 @@ void() SpectatorSpawn =
 #endif // FTE
 
 	setorigin(self, spawnpoint.origin + '0 0 20');
-    SendUpdatePlayers();
+    SendUpdatePlayers(true);
 };
 
 //called when a client loads a map
