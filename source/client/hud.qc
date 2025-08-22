@@ -2162,7 +2162,7 @@ void() HUD_ReviveIcons =
 			} 
 			// Draw with a yellow->red hue.
 			else {
-				drawpic(screen_position, "gfx/hud/revive_icon.tga", [32, 32, 1], [1,1 - (revive_icons[i].timer/30),0], 1);
+				drawpic(screen_position, "gfx/hud/revive_icon.tga", [32, 32, 1], [1,1 - (revive_icons[i].timer/LASTSTAND_DEATH_TIMER),0], 1);
 			}
 		}
 	}

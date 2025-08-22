@@ -318,6 +318,9 @@ float 	map_compatibility_mode;
 #define GAMEMODE_WILDWEST       4
 #define GAMEMODE_STICKSNSTONES  5
 
+// Other
+#define LASTSTAND_DEATH_TIMER 35
+
 // Misc. player statistics
 .float playernum;
 .float is_spectator;

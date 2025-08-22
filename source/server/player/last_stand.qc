@@ -25,8 +25,6 @@
 
 */
 
-#define LASTSTAND_DEATH_TIMER       30
-
 void() W_TakeOut;
 void() Gamemode_LastStand;
 
