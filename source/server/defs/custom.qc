@@ -656,3 +656,7 @@ float G_PERKPOWER;
 .float last_solid;
 .float had_solid_modified;
 #endif // FTE
+
+// http
+.float http_reqid;
+.void(float status, string body) http_handler;

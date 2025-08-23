@@ -173,9 +173,18 @@ void() StartFrame =
 }
 string(string s) precache_model         = #20;
 
+void(float status, string body) MyHandler =
+{
+    print("status=");
+    print(ftos(status));
+    print("\nbody=");
+    print(body);
+    print("\n");
+};
+
 void() precaches =
 {
-    TestHttpGet();
+    HttpGet("http://localhost:3000/?foo=bar", MyHandler);
 	precache_model ("models/player.mdl");
     precache_model ("models/binehoad.mdl");
 
