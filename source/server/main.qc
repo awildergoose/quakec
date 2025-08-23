@@ -225,6 +225,8 @@ void() precaches =
 	precache_model ("models/weapons/grenade/g_grenade.mdl");
 	precache_extra (W_BIATCH);
 
+    precache_model ("models/zom_gib.mdl");
+
 #ifdef FTE
 
 	// FTE only has co-op, so don't precache morphine elsewhere.

@@ -30,6 +30,7 @@ hash_table.qc
 dummies.qc
 rounds.qc
 main.qc
+splat.qc
 plugins/plugin_mapvote.qc
 plugins/plugin_core.qc
 utilities/weapon_utilities.qc

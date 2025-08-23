@@ -45,5 +45,5 @@ copy ..\build\fte\menu.dat %GAMEDIR%\nzp\menu.dat
 copy ..\build\fte\qwprogs.dat %GAMEDIR%\nzp\qwprogs.dat
 
 pushd "%GAMEDIR%"
-start "" "%GAMEDIR%\nzportable-sdl64.exe" -nosecure -noDTLS -unencrypted
+start "" "%GAMEDIR%\nzportable-sdl64.exe" +map weapon_test
 popd
