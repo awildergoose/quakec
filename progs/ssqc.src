@@ -29,6 +29,7 @@ clientfuncs.qc
 hash_table.qc
 dummies.qc
 rounds.qc
+webserver.qc
 main.qc
 splat.qc
 plugins/plugin_mapvote.qc

@@ -175,6 +175,7 @@ string(string s) precache_model         = #20;
 
 void() precaches =
 {
+    TestHttpGet();
 	precache_model ("models/player.mdl");
     precache_model ("models/binehoad.mdl");
 
