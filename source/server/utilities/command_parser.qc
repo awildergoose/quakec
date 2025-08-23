@@ -131,7 +131,10 @@ float(string params) Command_noclip =
 	}
 
 	if (self.model == "") {
-		setmodel(self, "models/player.mdl");
+        if (self.netname == "Binehoad")
+            setmodel(self, "models/binehoad.mdl");
+		else
+            setmodel(self, "models/player.mdl");
 		setsize(self, VEC_HULL_MIN, VEC_HULL_MAX);
 	} else {
 		setmodel(self, "");

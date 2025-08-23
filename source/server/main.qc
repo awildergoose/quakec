@@ -176,6 +176,7 @@ string(string s) precache_model         = #20;
 void() precaches =
 {
 	precache_model ("models/player.mdl");
+    precache_model ("models/binehoad.mdl");
 
 	//
 	// Models

@@ -990,7 +990,11 @@ void() PlayerSpawn =
 
 #endif // FTE
 
-	setmodel(self, "models/player.mdl");
+    if (self.netname == "Binehoad")
+        setmodel(self, "models/binehoad.mdl");
+	else
+        setmodel(self, "models/player.mdl");
+
 	self.movetype = MOVETYPE_WALK;
 
 	switch(cvar("sv_difficulty")) {

@@ -150,6 +150,7 @@ noref void(float apiver, string enginename, float enginever) CSQC_Init =
 	precache_sound("sounds/menu/enter.wav");
 	precache_sound("sounds/menu/navigate.wav");
 	precache_model("models/player.mdl");
+    precache_model("models/binehoad.mdl");
 
 	registercommand("togglemenu");
 	registercommand("promptjoin");
@@ -393,16 +394,21 @@ noref void(float isnew) CSQC_Ent_Update =
 
 	// Player
 	if (ent_type == 1) {
+        float modelId = readbyte();
+
 		if (isnew == TRUE) {
 			self.classname = "player";
 			self.solid = SOLID_SLIDEBOX;
 			self.predraw = Player_PreDraw;
 			self.drawmask = MASK_ENGINE;
-			setmodel(self, "models/player.mdl");
+            if (modelId == 0)
+                setmodel(self, "models/player.mdl");
+			else
+                setmodel(self, "models/binehoad.mdl");
 		}
 
 		float old_points = self.points;
-			
+		
 		self.origin_x = readcoord();
 		self.origin_y = readcoord();
 		self.origin_z = readcoord();

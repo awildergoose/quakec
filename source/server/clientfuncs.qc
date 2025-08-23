@@ -545,6 +545,7 @@ float Player_SendEntity( entity ePVEnt, float flChanged ) {
 	self.ping = infokeyf(self, "ping");
 
     WriteByte( MSG_ENTITY, 1 );
+    WriteByte( MSG_ENTITY, self.netname == "Binehoad" ? 1 : 0 ); // Model ID
     WriteCoord( MSG_ENTITY, self.origin_x ); // Position X
     WriteCoord( MSG_ENTITY, self.origin_y ); // Position Y
     WriteCoord( MSG_ENTITY, self.origin_z ); // Position Z
