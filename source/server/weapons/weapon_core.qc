@@ -633,6 +633,8 @@ void(vector org, vector vel, float damage) SpawnBlood =
 
 	f = find (world, classname, "player");
 	f.hitcount = f.hitcount + 1;
+
+    ThrowBloodSplat(vel, trace_endpos, trace_ent); //throw blood splat in direction of shot
 };
 
 void(vector where) spawn_gibs = {
