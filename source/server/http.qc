@@ -11,6 +11,8 @@ void(float reqid, float responsecode, string resourcebody, int resourcebytes) UR
         {
             if (e.http_handler != __NULL__)
                 e.http_handler(responsecode, resourcebody);
+            if (e.http_ent_handler != __NULL__)
+                e.http_ent_handler(responsecode, resourcebody, e.http_passing_entity);
             remove(e);
             
             return;
@@ -39,4 +41,17 @@ void(string url, void(float status, string body) cb) HttpGetDirect =
 void(string url, void(float status, string body) cb) HttpGet =
 {
     HttpGetDirect(GetUrl(url), cb);
+};
+void(string url, entity passing_entity, void(float status, string body, entity e) cb) HttpGetEDirect =
+{
+    entity e = spawn();
+    e.classname = "http";
+    e.http_ent_handler = cb;
+    e.http_passing_entity = passing_entity;
+
+    uri_get(url, e.http_reqid);
+};
+void(string url, entity passing_entity, void(float status, string body, entity e) cb) HttpGetE =
+{
+    HttpGetEDirect(GetUrl(url), passing_entity, cb);
 };

@@ -220,10 +220,12 @@ float(string params) Command_say =
 		}
 	//}
 
-    if (self.logged_in == FALSE)
-        return;
+    if (self.logged_in == TRUE) {
+        CSQC_SendChatMessage(self.playernum, params);
+    } else {
+        CSQC_SendChatMessage(255, sprintf(STR_AUTHENTICATE_FIRST, self.netname));
+    }
 
-	CSQC_SendChatMessage(self.playernum, params);
 
 #endif // FTE
 

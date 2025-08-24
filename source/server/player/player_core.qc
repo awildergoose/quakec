@@ -969,7 +969,7 @@ void() Player_PickSpawnPoint =
 
 void() SendAuthMessage =
 {
-    CSQC_SendChatMessage(255, sprintf("@%s, You have to /login or /register to continue!", self.netname));
+    CSQC_SendChatMessage(255, sprintf(STR_AUTHENTICATE_FIRST, self.netname));
 };
 
 void() SpectatorSpawn;

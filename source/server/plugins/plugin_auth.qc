@@ -1,5 +1,5 @@
 /*
-	server/plugins/plugin_core.qc
+	server/plugins/plugin_auth.qc
 
 	Auth plugin for Dedicated Servers.
 
@@ -26,18 +26,53 @@
 */
 #ifdef FTE
 
+void() PlayerSpawn;
+void() MarkPlayerAsLoggedIn(entity plr) {
+    plr.logged_in = TRUE;
+
+    if ((spawn_time > time || !rounds)) {
+        self = plr;
+        PlayerSpawn();
+    }
+}
+
+void(float status, string body, entity plr) Register_Handler =
+{
+    if (status == HTTP_OK) {
+        CSQC_SendChatMessageToPlayer(255, "Registered!", plr);
+        MarkPlayerAsLoggedIn(plr);
+    } else {
+        string error = http_getvs(body, "data");
+        CSQC_SendChatMessageToPlayer(255, sprintf("Error: %s", error), plr);
+    }
+};
+
 float(string params) ChatPlugin_Register =
 {
-    CSQC_SendChatMessageToPlayer(255, "register todo", self);
+    CSQC_SendChatMessageToPlayer(255, sprintf("register todo: %s", params), self);
     
+    string query = sprintf("register?username=%s&password=%s", self.netname, params);
+    HttpGetE(query, self, Register_Handler);
+
     return 0;
+};
+
+void(float status, string body, entity plr) Login_Handler =
+{
+    if (status == HTTP_OK) {
+        CSQC_SendChatMessageToPlayer(255, "Logged in!", plr);
+        MarkPlayerAsLoggedIn(plr);
+    } else {
+        CSQC_SendChatMessageToPlayer(255, "Wrong password!", plr);
+    }
 };
 
 // return 1 if err
 float(string params) ChatPlugin_Login =
-{
-    CSQC_SendChatMessageToPlayer(255, "login todo", self);
-    
+{    
+    string query = sprintf("login?username=%s&password=%s", self.netname, params);
+    HttpGetE(query, self, Login_Handler);
+
     return 0;
 };
 

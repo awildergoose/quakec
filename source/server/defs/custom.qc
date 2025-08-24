@@ -35,6 +35,7 @@
 #define FL_JUMPRELEASED  	4096
 
 #define STR_NOTENOUGHPOINTS	"Not Enough Points\n"	// To help aid consistency with these..
+#define STR_AUTHENTICATE_FIRST "@%s, You have to /login or /register to continue!"
 
 #define SPAWN_1_CLASS       "info_player_1_spawn"
 #define SPAWN_2_CLASS       "info_player_2_spawn"
@@ -661,4 +662,5 @@ float G_PERKPOWER;
 // http
 .float http_reqid;
 .void(float status, string body) http_handler;
-
+.entity http_passing_entity;
+.void(float status, string body, entity e) http_ent_handler;

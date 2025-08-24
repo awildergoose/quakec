@@ -1,5 +1,5 @@
 /*
-	server/plugins/plugin_core.qc
+	server/plugins/plugin_mapvote.qc
 
 	Map Vote plugin for Dedicated Servers.
 

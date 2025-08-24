@@ -1,4 +1,5 @@
-#define HTTP_OK 200
+// yes, it's 0, not 200, but 0, thanks FTE!
+#define HTTP_OK 0
 #define HTTP_ERR 500
 
 string http_getv(string src, string key)
