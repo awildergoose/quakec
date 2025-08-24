@@ -30,6 +30,8 @@ hash_table.qc
 dummies.qc
 rounds.qc
 http.qc
+api/other.qc
+api/auth.qc
 main.qc
 splat.qc
 plugins/plugin_mapvote.qc

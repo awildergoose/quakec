@@ -1,3 +1,6 @@
+// the slash is required!
+#define SERVER_URL "http://localhost:3000/"
+
 void(float reqid, float responsecode, string resourcebody, int resourcebytes) URI_Get_Callback =
 {
     entity e;
@@ -19,12 +22,21 @@ void(float reqid, float responsecode, string resourcebody, int resourcebytes) UR
     print("\n");
 };
 
+string(string path) GetUrl = 
+{
+    return strcat(SERVER_URL, path);
+};
+
 float(string uril, float id, optional string postmimetype, optional string postdata) uri_get = #513;
-void(string url, void(float status, string body) cb) HttpGet =
+void(string url, void(float status, string body) cb) HttpGetDirect =
 {
     entity e = spawn();
     e.classname = "http";
     e.http_handler = cb;
 
     uri_get(url, e.http_reqid);
+};
+void(string url, void(float status, string body) cb) HttpGet =
+{
+    HttpGetDirect(GetUrl(url), cb);
 };

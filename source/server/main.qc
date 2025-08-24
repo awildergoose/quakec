@@ -173,18 +173,15 @@ void() StartFrame =
 }
 string(string s) precache_model         = #20;
 
-void(float status, string body) MyHandler =
+void(float status, string body) server_version_handler =
 {
-    print("status=");
-    print(ftos(status));
-    print("\nbody=");
-    print(body);
-    print("\n");
+    string version = http_getvs(body, "data");
+    print("Server version: ", version, "\n");
 };
 
 void() precaches =
 {
-    HttpGet("http://localhost:3000/?foo=bar", MyHandler);
+    get_version(server_version_handler);
 	precache_model ("models/player.mdl");
     precache_model ("models/binehoad.mdl");
 
