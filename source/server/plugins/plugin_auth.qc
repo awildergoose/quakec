@@ -27,7 +27,8 @@
 #ifdef FTE
 
 void() PlayerSpawn;
-void() MarkPlayerAsLoggedIn(entity plr) {
+void(entity plr) MarkPlayerAsLoggedIn =
+{
     plr.logged_in = TRUE;
 
     if ((spawn_time > time || !rounds)) {
