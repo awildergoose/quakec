@@ -35,6 +35,7 @@ api/auth.qc
 main.qc
 splat.qc
 plugins/plugin_mapvote.qc
+plugins/plugin_auth.qc
 plugins/plugin_core.qc
 utilities/weapon_utilities.qc
 utilities/game_restart.qc

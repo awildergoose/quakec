@@ -157,6 +157,7 @@ void() W_SprintStop;
 .float dive;
 .float dive_delay;
 .vector movement;
+.float logged_in;
 
 .float hunt_count; // How many Hellhounds are hunting a client
 
@@ -660,3 +661,4 @@ float G_PERKPOWER;
 // http
 .float http_reqid;
 .void(float status, string body) http_handler;
+

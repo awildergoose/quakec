@@ -38,10 +38,11 @@ var struct {
     float                   requires_arguments;
     string                  command_description;
 } plugin_commands[] = {
-    {"mapvote", ChatPlugin_MapVote, true, "Usage: mapvote <bsp_name>\nAttempts to initiate a Map Vote. Fails if one is already in progress.\n"},
-    {"mapvote_y", ChatPlugin_MapVoteYes, false, "Usage: mapvote_y\n"},
-    {"mapvote_n", ChatPlugin_MapVoteNo, false, "Usage: mapvote_n\n"},
-
+//    {"mapvote", ChatPlugin_MapVote, true, "Usage: mapvote <bsp_name>\nAttempts to initiate a Map Vote. Fails if one is already in progress.\n"},
+//    {"mapvote_y", ChatPlugin_MapVoteYes, false, "Usage: mapvote_y\n"},
+//    {"mapvote_n", ChatPlugin_MapVoteNo, false, "Usage: mapvote_n\n"},
+    {"/login", ChatPlugin_Login, true, "Usage: /login <pwd>\n"},
+    {"/register", ChatPlugin_Register, true, "Usage: /register <pwd>\n"},
 };
 
 #endif // FTE

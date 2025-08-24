@@ -155,6 +155,8 @@ noref void(float apiver, string enginename, float enginever) CSQC_Init =
 	registercommand("togglemenu");
 	registercommand("promptjoin");
 	registercommand("showscores");
+    registercommand("login");
+    registercommand("register");
 
 	cvar_set("r_fb_models", ftos(0));
 	autocvar(r_viewmodel_default_fov, 70);

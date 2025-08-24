@@ -135,7 +135,7 @@ void() EndRound =
 	entity who = find(world,classname,"spectator");
 	while(who != world)
 	{
-		if(who.is_spectator)
+		if(who.is_spectator && who.logged_in)
 		{
 			self = who;
 			PlayerSpawn();

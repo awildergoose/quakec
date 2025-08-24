@@ -967,10 +967,21 @@ void() Player_PickSpawnPoint =
 	self = tempe;
 };
 
+void() SendAuthMessage =
+{
+    CSQC_SendChatMessage(255, sprintf("@%s, You have to /login or /register to continue!", self.netname));
+};
+
 void() SpectatorSpawn;
 void() PlayerSpawn =
 {	
-	entity spawnpoint = world;
+    if (self.logged_in == FALSE) {
+        SendAuthMessage();
+        SpectatorSpawn();
+        return;
+    }
+
+    entity spawnpoint = world;
 	local_client = self;
 
 	self.is_spectator = false;
@@ -1166,13 +1177,15 @@ void() PutClientInServer =
 		bprint(PRINT_HIGH, " has joined the game.\n");
 	}
 	
-	if (spawn_time > time || !rounds)
+	if ((spawn_time > time || !rounds) && self.logged_in == TRUE)
 		PlayerSpawn();
 
 #ifdef FTE
 
-	else 
+	else {
 		SpectatorSpawn();
+        SendAuthMessage();
+    }
 
 	// Force the client to always be networked to other clients, even when
 	// outside of the same PVS.

@@ -367,7 +367,7 @@ void() worldspawn =
 
 	// Init Power-Ups
 	PU_Init();
-
+    
 #ifdef FTE
 
 	clientstat(STAT_CURRENTMAG, EV_FLOAT, weapons[0].weapon_magazine);

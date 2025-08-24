@@ -202,8 +202,8 @@ float(string params) Command_say =
 	string first_word = argv(0);
 
 #ifdef FTE
-
-	if (cvar("sv_enablechatplugins")) {
+    
+	//if (cvar("sv_enablechatplugins")) {
 		// Support for custom chat commands.
 		for (float i = 0; i < plugin_commands.length; i++) {
 			// Command names match
@@ -218,7 +218,10 @@ float(string params) Command_say =
 				return COMMAND_SUCCESS;
 			}
 		}
-	}
+	//}
+
+    if (self.logged_in == FALSE)
+        return;
 
 	CSQC_SendChatMessage(self.playernum, params);
 
