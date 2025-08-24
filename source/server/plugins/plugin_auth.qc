@@ -39,18 +39,20 @@ void(entity plr) MarkPlayerAsLoggedIn =
 
 void(float status, string body, entity plr) Register_Handler =
 {
-    if (status == HTTP_OK) {
+    if (http_is_ok(body)) {
         CSQC_SendChatMessageToPlayer(255, "Registered!", plr);
         MarkPlayerAsLoggedIn(plr);
     } else {
-        string error = http_getvs(body, "data");
-        CSQC_SendChatMessageToPlayer(255, sprintf("Error: %s", error), plr);
+        CSQC_SendChatMessageToPlayer(255, sprintf("Error: %s", http_get_err(body)), plr);
     }
 };
 
 float(string params) ChatPlugin_Register =
 {
-    CSQC_SendChatMessageToPlayer(255, sprintf("register todo: %s", params), self);
+    if (self.logged_in) {
+        CSQC_SendChatMessageToPlayer(255, "You're already logged in!", self);
+        return 1;
+    }
     
     string query = sprintf("register?username=%s&password=%s", self.netname, params);
     HttpGetE(query, self, Register_Handler);
@@ -60,17 +62,21 @@ float(string params) ChatPlugin_Register =
 
 void(float status, string body, entity plr) Login_Handler =
 {
-    if (status == HTTP_OK) {
+    if (http_is_ok(body)) {
         CSQC_SendChatMessageToPlayer(255, "Logged in!", plr);
         MarkPlayerAsLoggedIn(plr);
     } else {
-        CSQC_SendChatMessageToPlayer(255, "Wrong password!", plr);
+        CSQC_SendChatMessageToPlayer(255, sprintf("Error: %s", http_get_err(body)), plr);
     }
 };
 
-// return 1 if err
 float(string params) ChatPlugin_Login =
-{    
+{
+    if (self.logged_in) {
+        CSQC_SendChatMessageToPlayer(255, "You're already logged in!", self);
+        return 1;
+    }
+
     string query = sprintf("login?username=%s&password=%s", self.netname, params);
     HttpGetE(query, self, Login_Handler);
 

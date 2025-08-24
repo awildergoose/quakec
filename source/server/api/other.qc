@@ -1,7 +1,3 @@
-// yes, it's 0, not 200, but 0, thanks FTE!
-#define HTTP_OK 0
-#define HTTP_ERR 500
-
 string http_getv(string src, string key)
 {
     string line;
@@ -38,12 +34,12 @@ string http_getv(string src, string key)
     }
 
     return "";
-}
+};
 
 string http_getvs(string src, string key)
 {
     return http_getv(src, key);
-}
+};
 
 float http_getvf(string src, string key)
 {
@@ -51,8 +47,17 @@ float http_getvf(string src, string key)
     if (s == "")
         return 0;
     return stof(s);
-}
+};
 
+float http_is_ok(string body)
+{
+    return http_getvf(body, "success");
+};
+
+string http_get_err(string body)
+{
+    return http_getvs(body, "data");
+};
 
 void(void(float status, string body) cb) get_version =
 {

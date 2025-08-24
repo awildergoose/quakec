@@ -969,7 +969,7 @@ void() Player_PickSpawnPoint =
 
 void() SendAuthMessage =
 {
-    CSQC_SendChatMessage(255, sprintf(STR_AUTHENTICATE_FIRST, self.netname));
+    CSQC_SendChatMessageToPlayer(255, sprintf(STR_AUTHENTICATE_FIRST, self.netname), self);
 };
 
 void() SpectatorSpawn;

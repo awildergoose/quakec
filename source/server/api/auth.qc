@@ -1,6 +1,6 @@
 void(float status, string body) register_handler =
 {
-    if (status == HTTP_OK)
+    if (http_is_ok(body))
     {
         string msg = http_getvs(body, "data");
         print(strcat("Register succeeded: ", msg));
