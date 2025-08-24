@@ -135,8 +135,6 @@ void() weapon_wall =
 //
 void () WallWeapon_TouchTrigger =
 {
-	entity oldent;
-
 	float wcost;
 
 	if (other.classname != "player" || other.downed || other.isBuying || (map_compatibility_mode != MAP_COMPAT_BETA && !PlayerIsLooking(other, self))) {

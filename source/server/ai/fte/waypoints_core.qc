@@ -259,7 +259,7 @@ void () Link_Waypoints =
 	}
 	
 	float i;
-	entity tempe;
+	
 	for	(i = 0; i < MAX_WAY_TARGETS; i++) {
 		// First pass - if the target field is blank no extra
 		// validation is needed, just link.

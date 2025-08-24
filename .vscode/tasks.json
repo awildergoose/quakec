@@ -3,7 +3,7 @@
     "tasks": [
         {
             "label": "compile",
-            "command": "qc-compiler-win.bat",
+            "command": "python build.py",
             "type": "shell",
             "options": {
                 "cwd": "${cwd}/tools"
